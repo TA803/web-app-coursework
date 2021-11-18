@@ -1,107 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<script src="https://unpkg.com/vue"></script>
-		<script src="subjects.js"></script>
-		
-	</head>
 
-	<body>
-		<div id="app">
-			<header>
-				<h1 v-text="sitename"></h1>
-				<button @click="showCheckout">
-					{{cartItemCount}}
-					<span class="fas fa-shopping cart"></span>
-					Checkout
-				</button>
-				<br>
-			</header>
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <script src="https://unpkg.com/vue"></script>
+    <script src="subjects.js"></script>
 
-			<main>
-				<figure>
-					<img
-						v-bind:src="product.image"
-						style="
-							width: 80px;
-							height: 80px;
-							float: left;
-							padding-top: 50px;
-							padding-bottom: 30px;
-							padding-right: 30px;
-						"
-					/>
-				</figure>
+</head>
 
-			
+<body>
+    <div id="app">
+        <header>
+            <h1 v-text="sitename"></h1>
+            <button @click="showCheckout">
+				{{cartItemCount}}
+				<span class="fas fa-shopping cart"></span>
+				Checkout
+			</button>
+            <br>
+            <div v-if="showSubject">
+                <div class="subjects-loop" v-for="subject in subjects">
+                    <figure>
+                        <img v-bind:src="subject.image" style="
+									width: 80px;
+									height: 80px;
+								" />
+                    </figure>
 
-				<div>
-					<h2 v-text="product.title"></h2>
-					<p v-text="product.location"></p>
-					<p>Price: {{product.price}}</p>
-					<p>Number of spaces: {{product.quantity}}</p>
-				</div>
 
-				<button :disabled="isDisabled" v-on:click="addToCart">
-					{{ buttonText }}
-				</button>
-			</main>
-		
-			
 
-		<script>
-			var app = new Vue({
-				el: '#app',
-				data: {
-					sitename: 'After School Club',
-					product: {
-						title: 'Math',
-						location: 'London',
-						price: 100,
-						quantity: 8,
-						image: 'math.png',
-					},
-					order:{
-					firstName: "",
-					lastName:"",
-				},
-				
-				},
-				methods: {
-					addToCart: function () {
-						if (this.product.quantity > 0) {
-							this.product.quantity -= 1;
-						}
-					},
-				},
-				computed: {
-					isDisabled: function () {
-						return this.product.quantity === 0;
-					},
-					buttonText: function () {
-						return this.product.quantity === 0 ? 'Sold Out' : 'Add to Cart';
-					},
-				},
-			});
-		</script>
-		</div>
-		<div v-else>
-		<h2>Checkout</h2>
-		<p>
-			<strong>First Name:</strong>
-			<input v-model="order.firstName">
-		</p>
-		<p>
-			<strong>Last Name:</strong>
-			<input v-model="order.lastName">
-		</p>
-		<h3>Order Information</h3>
-		<p>First Name: {{order.firstName}}</p>
-		<p>Last Name: {{order.lastName}}</p>
+                    <div>
+                        <h2 v-text="subject.title"></h2>
+                        <p>Location: {{subject.location}}</p>
+                        <p>Price: {{subject.price}}</p>
+                        <p>Number of spaces: {{subject.space}}</p>
+                    </div>
 
-	</div>
-	</body>
+                    <button :disabled="subject.space < 1" v-on:click="addToCart(subject)">
+						{{ buttonText }}
+					</button>
+                </div>
+
+
+            </div>
+            <div v-else>
+                <h2>Checkout</h2>
+                <p>
+                    <strong>First Name:</strong>
+                    <input v-model="order.firstName" />
+                </p>
+                <p>
+                    <strong>Last Name:</strong>
+                    <input v-model="order.lastName" />
+                </p>
+                <h2>Order Information</h2>
+                <p>First Name: {{order.firstName}}</p>
+                <p>Last Name: {{order.lastName}}</p>
+
+            </div>
+        </header>
+
+        <main>
+
+        </main>
+
+
+
+
+    </div>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                sitename: 'After School Club',
+                showSubject: true,
+                subjects: subjects,
+
+
+            },
+            order: {
+                firstName: '',
+                lastName: '',
+            },
+
+            methods: {
+                addToCart(subject) {
+                    if (subject.space > 0) {
+                        subject.space -= 1;
+                    }
+                },
+                showCheckout() {
+                    showSubject: false;
+                },
+                showCheckout() {},
+            },
+            computed: {
+                buttonText: function() {
+                    return this.subjects.space === 0 ? 'Sold Out' : 'Add to Cart';
+                },
+            },
+        });
+    </script>
+</body>
+
 </html>
