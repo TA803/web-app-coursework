@@ -51,9 +51,9 @@
 
                     <div>
                         <h2 v-text="subject.title"></h2>
-                        <p>Location: {{subject.location}}</p>
-                        <p>Price: {{subject.price}}</p>
-                        <p>Number of spaces: {{subject.space}}</p>
+                        <p><i class="fas fa-map-marked-alt"></i> Location: {{subject.location}}</p>
+                        <p><i class="fas fa-coins"></i> Price: {{subject.price}}</p>
+                        <p><i class="fas fa-user-friends"></i> Spaces Left: {{subject.space}}</p>
                     </div>
 
                     <button :disabled="subject.space < 1" v-on:click="addToCart(subject)">
@@ -80,6 +80,9 @@
                 <button :disabled="!verified" v-on:click="submitted()">
 					Submit
 				</button>
+                <p>
+                    {{submitMessage}}
+                </p>
                 <br>
                 <h2>Order Information</h2>
                 <p>First Name: {{order.firstName}}</p>
@@ -125,6 +128,7 @@
                 sitename: 'After School Club',
                 showSubject: true,
                 subjects: subjects,
+                submitMessage: "",
                 order: {
                     firstName: '',
                     lastName: '',
@@ -139,6 +143,9 @@
 
 
             methods: {
+                submitted() {
+                    this.submitMessage = "Successfully Submitted"
+                },
                 addToCart(subject) {
                     if (subject.space > 0) {
                         subject.space -= 1;
