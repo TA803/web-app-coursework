@@ -16,7 +16,7 @@
         <header>
             <h1 v-text="sitename"></h1>
             <button @click="showCheckout">
-				{{cartItemCount}}
+				<!-- {{cartItemCount}} -->
 				<span class="fas fa-shopping cart"></span>
 				Checkout
 			</button>
@@ -27,10 +27,10 @@
                     <br>
                     <label for="sortVariable">Sort By:</label>
                     <select id="sortVariable" v-model="sortBy">
-						<option value="title">Title</option>
-						<option value="price">Price</option>
-						<option value="space">Space</option>
-						<option value="location">Location</option>
+						<option value= title >Title</option>
+						<option value= price >Price</option>
+						<option value= space>Space</option>
+						<option value=location>Location</option>
 					  </select>
                     <select id="ascDes" v-model="sortByAD">
 						<option value="ascending">Ascending</option>
@@ -100,8 +100,8 @@
                     lastName: '',
                 },
                 cart: [],
-                sortBy: "title",
-                sortByAD: "ascending",
+                sortBy: 'title',
+                sortByAD: 'ascending',
             },
 
 
@@ -117,21 +117,61 @@
                 showCheckout() {
                     showSubject: false;
                 },
-                showCheckout() {},
+                showCheckout() {
+                    console.log(this.cart)
+                },
             },
             computed: {
                 buttonText: function() {
                     return this.subjects.space === 0 ? 'Sold Out' : 'Add to Cart';
                 },
                 sortedSubjects() {
-                    // the comparison function that defines the order
-                    function compare(a, b) {
-                        x = this.sortBy
-
-                        if (a.x > b.x) return 1;
-                        if (a.x < b.x) return -1;
+                    function compareTitle(a, b) {
+                        if (a.title > b.title) return 1;
+                        if (a.title < b.title) return -1;
                         return 0;
                     }
+
+                    function comparePrice(a, b) {
+                        if (a.price > b.price) return 1;
+                        if (a.price < b.price) return -1;
+                        return 0;
+                    }
+
+                    function compareLocation(a, b) {
+                        if (a.location > b.location) return 1;
+                        if (a.location < b.location) return -1;
+                        return 0;
+                    }
+
+                    function compareSpace(a, b) {
+                        if (a.space > b.space) return 1;
+                        if (a.space < b.space) return -1;
+                        return 0;
+                    }
+
+                    if (this.sortByAD === "ascending") {
+                        if (this.sortBy === "title") {
+                            return this.subjects.sort(compareTitle);
+                        } else if (this.sortBy === "price") {
+                            return this.subjects.sort(comparePrice);
+                        } else if (this.sortBy === "location") {
+                            return this.subjects.sort(compareLocation);
+                        } else if (this.sortBy === "space") {
+                            return this.subjects.sort(compareSpace);
+                        }
+                    } else if (this.sortByAD === "descending") {
+                        if (this.sortBy === "title") {
+                            return this.subjects.sort(compareTitle).reverse();
+                        } else if (this.sortBy === "price") {
+                            return this.subjects.sort(comparePrice).reverse();
+                        } else if (this.sortBy === "location") {
+                            return this.subjects.sort(compareLocation).reverse();
+                        } else if (this.sortBy === "space") {
+                            return this.subjects.sort(compareSpace).reverse();
+                        }
+                    }
+
                     // sort the 'products' array and return it
                     return this.subjects.sort(compare);
                 }
