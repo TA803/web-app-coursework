@@ -73,6 +73,6 @@ let subjects = [{
         "location": "Cornwall",
         "price": 400,
         "space": 5,
-        "image": 'https://tinyurl.com/mvm6e7t',
+        "image": 'https://tinyurl.com/r37j63yp',
     },
 ]
