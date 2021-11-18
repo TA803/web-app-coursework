@@ -7,7 +7,6 @@ let subjects = [{
         "image": "https://tinyurl.com/u7439vp3",
     },
     {
-
         "id": 1002,
         "title": "English",
         "location": "Birmingham",
@@ -16,7 +15,6 @@ let subjects = [{
         "image": 'math.png',
     },
     {
-
         "id": 1003,
         "title": "History",
         "location": "Hastings",
@@ -25,7 +23,6 @@ let subjects = [{
         "image": 'math.png',
     },
     {
-
         "id": 1004,
         "title": "Geography",
         "location": "Stonehenge",
@@ -34,7 +31,6 @@ let subjects = [{
         "image": 'math.png',
     },
     {
-
         "id": 1005,
         "title": "Art",
         "location": "Edinburgh",
@@ -43,7 +39,6 @@ let subjects = [{
         "image": 'math.png',
     },
     {
-
         "id": 1006,
         "title": "Football",
         "location": "Manchester",
@@ -52,7 +47,6 @@ let subjects = [{
         "image": 'math.png',
     },
     {
-
         "id": 1007,
         "title": "Cricket",
         "location": "Lords",
@@ -61,7 +55,6 @@ let subjects = [{
         "image": 'math.png',
     },
     {
-
         "id": 1008,
         "title": "Politics",
         "location": "Brighton",
@@ -70,7 +63,6 @@ let subjects = [{
         "image": 'math.png',
     },
     {
-
         "id": 1009,
         "title": "Economics",
         "location": "London",
@@ -79,7 +71,6 @@ let subjects = [{
         "image": 'math.png',
     },
     {
-
         "id": 1010,
         "title": "Business",
         "location": "London",
@@ -88,7 +79,6 @@ let subjects = [{
         "image": 'math.png',
     },
     {
-
         "id": 1011,
         "title": "Nursing",
         "location": "Cornwall",
