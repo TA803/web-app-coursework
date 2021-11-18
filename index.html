@@ -22,7 +22,24 @@
 			</button>
             <br>
             <div v-if="showSubject">
-                <div class="subjects-loop" v-for="subject in subjects">
+                <div>
+                    <br>
+                    <br>
+                    <label for="sortVariable">Sort By:</label>
+                    <select id="sortVariable" v-model="sortBy">
+						<option value="title">Title</option>
+						<option value="price">Price</option>
+						<option value="space">Space</option>
+						<option value="location">Location</option>
+					  </select>
+                    <select id="ascDes" v-model="sortByAD">
+						<option value="ascending">Ascending</option>
+						<option value="descending">Descending</option>
+					  </select>
+                    <br>
+                    <br>
+                </div>
+                <div class="subjects-loop" v-for="subject in sortedSubjects">
                     <figure>
                         <img v-bind:src="subject.image" style="
 									width: 80px;
@@ -78,18 +95,23 @@
                 sitename: 'After School Club',
                 showSubject: true,
                 subjects: subjects,
+                order: {
+                    firstName: '',
+                    lastName: '',
+                },
+                cart: [],
+                sortBy: "title",
+                sortByAD: "ascending",
+            },
 
 
-            },
-            order: {
-                firstName: '',
-                lastName: '',
-            },
+
 
             methods: {
                 addToCart(subject) {
                     if (subject.space > 0) {
                         subject.space -= 1;
+                        this.cart.push(subject)
                     }
                 },
                 showCheckout() {
@@ -101,6 +123,18 @@
                 buttonText: function() {
                     return this.subjects.space === 0 ? 'Sold Out' : 'Add to Cart';
                 },
+                sortedSubjects() {
+                    // the comparison function that defines the order
+                    function compare(a, b) {
+                        x = this.sortBy
+
+                        if (a.x > b.x) return 1;
+                        if (a.x < b.x) return -1;
+                        return 0;
+                    }
+                    // sort the 'products' array and return it
+                    return this.subjects.sort(compare);
+                }
             },
         });
     </script>
