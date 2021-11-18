@@ -5,12 +5,20 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<script src="https://unpkg.com/vue"></script>
+		<script src="subjects.js"></script>
+		
 	</head>
 
 	<body>
 		<div id="app">
 			<header>
 				<h1 v-text="sitename"></h1>
+				<button @click="showCheckout">
+					{{cartItemCount}}
+					<span class="fas fa-shopping cart"></span>
+					Checkout
+				</button>
+				<br>
 			</header>
 
 			<main>
@@ -28,6 +36,8 @@
 					/>
 				</figure>
 
+			
+
 				<div>
 					<h2 v-text="product.title"></h2>
 					<p v-text="product.location"></p>
@@ -39,7 +49,8 @@
 					{{ buttonText }}
 				</button>
 			</main>
-		</div>
+		
+			
 
 		<script>
 			var app = new Vue({
@@ -50,9 +61,14 @@
 						title: 'Math',
 						location: 'London',
 						price: 100,
-						quantity: 5,
+						quantity: 8,
 						image: 'math.png',
 					},
+					order:{
+					firstName: "",
+					lastName:"",
+				},
+				
 				},
 				methods: {
 					addToCart: function () {
@@ -71,5 +87,21 @@
 				},
 			});
 		</script>
+		</div>
+		<div v-else>
+		<h2>Checkout</h2>
+		<p>
+			<strong>First Name:</strong>
+			<input v-model="order.firstName">
+		</p>
+		<p>
+			<strong>Last Name:</strong>
+			<input v-model="order.lastName">
+		</p>
+		<h3>Order Information</h3>
+		<p>First Name: {{order.firstName}}</p>
+		<p>Last Name: {{order.lastName}}</p>
+
+	</div>
 	</body>
 </html>

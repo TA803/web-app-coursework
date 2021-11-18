@@ -4,7 +4,8 @@ let subjects = [
     "Place":"London",
     "Price":100,
     "Availability":10
-    "image": ,
+    "Availability":8
+    "image": https://tinyurl.com/u7439vp3 ,
 },
 {
     {"id": 1002,
