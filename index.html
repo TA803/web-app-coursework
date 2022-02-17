@@ -40,7 +40,7 @@
                 </div>
                 <div class="subjects-loop" v-for="subject in sortedSubjects">
                     <figure>
-                        <img v-bind:src="subject.image" style="
+                        <img v-bind:src="`https://ta803.herokuapp.com/${subject.image}`" style="
 									width: 80px;
 									height: 80px;
 								" />
@@ -89,7 +89,7 @@
 
                 <div class="subjects-loop" v-for="subject in cart">
                     <figure>
-                        <img v-bind:src="subject.image" style="
+                        <img v-bind:src="`https://ta803.herokuapp.com/${subject.image}`" style="
 									width: 80px;
 									height: 80px;
 								" />
@@ -144,6 +144,39 @@
             methods: {
                 submitted() {
                     this.submitMessage = "Successfully Submitted"
+
+                    this.cart.forEach(subject => {
+                        //updates order database
+                        fetch('https://ta803.herokuapp.com/collection/orders', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify({
+                                    name: this.order.firstName,
+                                    phone_number: this.order.phoneNumber,
+                                    lessonId: subject._id,
+                                    space: 1,
+                                })
+                            }).then(response => response.json())
+                            .then(responseJSON => {
+                                console.log('Success:', responseJSON);
+                            });
+
+                        //updates space available is subject database
+                        fetch('https://ta803.herokuapp.com/collection/lessons/' + subject._id, {
+                                method: 'PUT',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify({
+                                    space: (subject.space),
+                                })
+                            }).then(response => response.json())
+                            .then(responseJSON => {
+                                console.log('Success:', responseJSON);
+                            });
+                    })
                 },
                 addToCart(subject) {
                     if (subject.space > 0) {
@@ -257,15 +290,16 @@
 
             created() {
                 fetch('https://ta803.herokuapp.com/collection/lessons').then(
-                    function(response) {
-                        response.json().then(
+                    function(response) { // passes the response to function
+                        response.json().then( // turns into json format
                             function(json) {
-                                // note that we used 'store.product' instead of 'this.product'
-                                console.log(json)
+                                // note that we used 'app.subjects' instead of 'this.product'
                                 app.subjects = json;
                             });
                     })
-            }
+            },
+
+
         });
     </script>
 </body>
