@@ -6,8 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
-    <script src="https://unpkg.com/vue"></script>
-    <script src="subjects.js"></script>
+    <script src="https://unpkg.com/vue@2"></script>
 
 </head>
 
@@ -127,7 +126,7 @@
             data: {
                 sitename: 'After School Club',
                 showSubject: true,
-                subjects: subjects,
+                subjects: [],
                 submitMessage: "",
                 order: {
                     firstName: '',
@@ -255,6 +254,18 @@
                     return this.subjects.sort(compare);
                 }
             },
+
+            created() {
+                fetch('https://ta803.herokuapp.com/collection/lessons').then(
+                    function(response) {
+                        response.json().then(
+                            function(json) {
+                                // note that we used 'store.product' instead of 'this.product'
+                                console.log(json)
+                                app.subjects = json;
+                            });
+                    })
+            }
         });
     </script>
 </body>
